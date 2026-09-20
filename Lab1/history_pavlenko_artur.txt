@@ -1,0 +1,84 @@
+  810  uname -a
+  811  sudo apt update && sudo apt upgrade -y
+  812  cat /etc/apt/sources.list
+  813  sudo apt install vim -y
+  814  cd ~
+  815  cd ~/Downloads
+  816  man ls
+  817  ls -l
+  818  dpkg -i ~/hello*.deb
+  819  sudo dpkg -i ~/hello*.deb
+  820  cd /
+  821  sudo su
+  822  echo "hi all"
+  823  echo "$PWD hi all here!"
+  824  cd ~ && touch hi.sh
+  825  echo $PATH
+  826  vi hi.sh
+  827  ./hi.sh
+  828  chmod a+x hi.sh
+  829  chmod a+rwx hi.sh
+  830  ./hi.sh
+  831  ./hi.sh Ukraine
+  832  cp hi.sh ~/scripts/
+  833  cp ~/scripts ~/Documents/
+  834  cp -r ~/scripts ~/Documents/
+  835  cd ~/scripts/
+  836  mv hi.sh ../
+  837  cd ../
+  838  rm scripts/
+  839  rm -r scripts/
+  840  cd /bin
+  841  ls -l
+  842  cd ../../
+  843  cd ~ && mkdir scripts && tar -cvf scripts.tar scripts/
+  844  cat hi.sh
+  845  cat /var/log/syslog
+  846  tail -n 20 /var/log/syslog
+  847  less /var/log/syslog
+  848  cd /
+  849  find . -name "dhcp" 2>/dev/null
+  850  find . -name "*dhcp*" 2>/dev/null
+  851  find . -name "*dhcp*" 2>/dev/null | grep -i "dhcp"
+  852  find . -name "*dhcp*" 2>/dev/null | grep -i "etc"
+  853  ping google.com
+  854  ping google.com > ~/ping.log &
+  855  sudo ping google.com > ~/sudo_ping.log &
+  856  vlc &
+  857  ls -l
+  858  cd /bin
+  859  ls
+  860  echo $PATH
+  861  printenv
+  862  whoami
+  863  cd /etc/
+  864  ls
+  865  cd ..
+  866  cd /lib
+  867  ls
+  868  dmesg
+  869  sudo dmesg
+  870  ls /dev
+  871  sudo dmesg -c
+  872  dmesg
+  873  sudo dmesg
+  874  ls /dev
+  875  sudo dmesg -c
+  876  dmesg
+  877  df -h
+  878  cd /home
+  879  ls -l
+  880  lsmod
+  881  cd /proc
+  882  sudo dmesg
+  883  df -h
+  884  cd /home
+  885  ls -l
+  886  lsmod
+  887  cd /proc
+  888  cat cpuinfo
+  889  echo 1 > /proc/sys/net/ipv4/ip_forward
+  890  sudo echo 1 > /proc/sys/net/ipv4/ip_forward
+  891  sudo su
+  892  date && history > history_pavlenko_artur.txt
+  893  cd ~ && date && history > history_pavlenko_artur.txt
