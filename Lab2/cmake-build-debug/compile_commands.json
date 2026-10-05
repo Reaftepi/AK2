@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/ubuntu/lab2-main/cmake-build-debug",
+  "command": "/usr/bin/c++ -Dcalculator_EXPORTS -I/home/ubuntu/lab2-main -g -std=gnu++20 -fPIC -fdiagnostics-color=always -o CMakeFiles/calculator.dir/calculator.cpp.o -c /home/ubuntu/lab2-main/calculator.cpp",
+  "file": "/home/ubuntu/lab2-main/calculator.cpp",
+  "output": "CMakeFiles/calculator.dir/calculator.cpp.o"
+},
+{
+  "directory": "/home/ubuntu/lab2-main/cmake-build-debug",
+  "command": "/usr/bin/c++  -I/home/ubuntu/lab2-main -g -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/Pavlenko.dir/main.cpp.o -c /home/ubuntu/lab2-main/main.cpp",
+  "file": "/home/ubuntu/lab2-main/main.cpp",
+  "output": "CMakeFiles/Pavlenko.dir/main.cpp.o"
+}
+]

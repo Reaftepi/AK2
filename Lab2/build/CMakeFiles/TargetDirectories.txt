@@ -1,0 +1,4 @@
+/home/ubuntu/lab2-main/build/CMakeFiles/calculator.dir
+/home/ubuntu/lab2-main/build/CMakeFiles/Pavlenko.dir
+/home/ubuntu/lab2-main/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/lab2-main/build/CMakeFiles/rebuild_cache.dir

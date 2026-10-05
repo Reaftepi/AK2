@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/Pavlenko.dir/main.cpp.o -o Pavlenko  -Wl,-rpath,/home/ubuntu/lab2-main/cmake-build-debug libcalculator.so
