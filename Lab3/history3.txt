@@ -1,0 +1,75 @@
+    1  sudo apt update
+    2  sudo apt install build-essential bison flex bc libssl-dev libncurses-dev u-boot-tools cpio rsync swig python3-dev python3-setuptools qemu-system-arm
+    3  gcc --version
+    4  sudo apt install gcc-9
+    5  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11
+    6  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
+    7  sudo update-alternatives --config gcc
+    8  gcc --version
+    9  ls /opt
+   10  /opt/gcc-arm-8.3-2019.03-x86_64-arm-eabi/bin/arm-eabi-gcc --version
+   11  /opt/gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc --version
+   12  mkdir -p ~/repos && cd ~/repos
+   13  git clone https://source.denx.de/u-boot/u-boot.git
+   14  cd u-boot
+   15  git checkout v2019.07
+   16  export PATH=/opt/gcc-arm-8.3-2019.03-x86_64-arm-eabi/bin:$PATH
+   17  export CROSS_COMPILE='ccache arm-eabi-'
+   18  export ARCH=arm
+   19  echo $CROSS_COMPILE
+   20  arm-eabi-gcc --version
+   21  make am335x_evm_defconfig
+   22  make -j4
+   23  ls -l MLO u-boot.img
+   24  cd ~/repos
+   25  git clone --depth 1 -b linux-5.4.y https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git linux
+   26  cd linux
+   27  export PATH=/opt/gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf/bin:$PATH
+   28  export CROSS_COMPILE='ccache arm-linux-gnueabihf-'
+   29  export ARCH=arm
+   30  echo $CROSS_COMPILE
+   31  arm-linux-gnueabihf-gcc --version
+   32  make multi_v7_defconfig
+   33  make -j4 zImage modules dtbs
+   34  ls -l arch/arm/boot/zImage arch/arm/boot/dts/am335x-boneblack.dtb
+   35  cd ~/repos
+   36  git clone https://git.busybox.net/busybox
+   37  cd busybox
+   38  git checkout 1_31_stable
+   39  echo $CROSS_COMPILE
+   40  make defconfig
+   41  make -j4
+   42  make install
+   43  file _install/bin/busybox
+   44  mkdir -p _install/{boot,dev,etc/init.d,lib,proc,root,sys/kernel/debug,tmp}
+   45  nano _install/etc/init.d/rcS
+   46  cat _install/etc/init.d/rcS
+   47  chmod +x _install/etc/init.d/rcS
+   48  ln -s bin/busybox _install/init
+   49  cd _install/boot
+   50  cp ~/repos/linux/arch/arm/boot/zImage .
+   51  cp ~/repos/linux/arch/arm/boot/dts/am335x-boneblack.dtb .
+   52  cp ~/repos/linux/System.map .
+   53  cp ~/repos/linux/.config ./config
+   54  cd -
+   55  cd ~/repos/linux
+   56  export INSTALL_MOD_PATH=~/repos/busybox/_install
+   57  make modules_install
+   58  cd -
+   59  arm-linux-gnueabihf-readelf -d _install/bin/busybox | grep NEEDED
+   60  cd _install/lib
+   61  libc_dir=$(arm-linux-gnueabihf-gcc -print-sysroot)/lib
+   62  cp -a $libc_dir/*.so* .
+   63  cd -
+   64  echo '$MODALIAS=.* root:root 660 @modprobe "$MODALIAS"' > _install/etc/mdev.conf
+   65  echo 'root:x:0:' > _install/etc/group
+   66  echo 'root:x:0:0:root:/root:/bin/sh' > _install/etc/passwd
+   67  echo 'root::10933:0:99999:7:::' > _install/etc/shadow
+   68  echo "nameserver 8.8.8.8" > _install/etc/resolv.conf
+   69  ls _install _install/boot _install/etc
+   70  cd ~/repos/busybox/_install
+   71  find . | cpio -o -H newc | gzip > ../rootfs.cpio.gz
+   72  cd ..
+   73  ls -lh rootfs.cpio.gz
+   74  qemu-system-arm -kernel _install/boot/zImage -initrd rootfs.cpio.gz -machine virt -nographic -m 512 --append "root=/dev/ram0 rw console=ttyAMA0,115200 mem=512M"
+   75  cd ~ && date && history > history3.txt
